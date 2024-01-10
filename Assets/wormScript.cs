@@ -25,11 +25,8 @@ public class wormScript : MonoBehaviour
         canMove = true; 
     }
 
-
-
     void Update()
     {
-
 
 
         if (canMove)
@@ -80,7 +77,6 @@ public class wormScript : MonoBehaviour
             Debug.Log("Cannot move");
             gameObject.SetActive(false);
         }
-
     }
 
     public void DisablePlayerMovement()
