@@ -4,31 +4,72 @@ using UnityEngine;
 
 public class WormMovement : MonoBehaviour
 {
+	
+	private Vector2Int gridMoveDirection;
+	private Vector2Int gridPosition;
+	private float gridMoveTimer;
+	private float gridMoveTimerMax;
 
-	private Vector2 _direction = Vector2.right;
+	private void Awake() {
+		gridPosition = new Vector2Int(0,0);
+		gridMoveTimerMax = .2f;
+		gridMoveTimer = gridMoveTimerMax;
+		gridMoveDirection = new Vector2Int(1,0);
+	}	
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.W)) { 
-			_direction = Vector2.up;
+    void Update() {
+		
+		HandleInput();	
+		HandleGridMove();
+
+	}
+
+	private void HandleInput() {
+
+		if (Input.GetKeyDown(KeyCode.W)) {
+			if (gridMoveDirection.y != -1) {
+				gridMoveDirection.y = 1;
+				gridMoveDirection.x = 0;
+			}
 		}
 		else if (Input.GetKeyDown(KeyCode.S)) {
-			_direction = Vector2.down;
+			if (gridMoveDirection.y != +1) {
+				gridMoveDirection.y = -1;
+				gridMoveDirection.x = 0;
+			}
 		}
 		else if (Input.GetKeyDown(KeyCode.A)) {
-			_direction = Vector2.left;
+			if (gridMoveDirection.x != +1) {
+				gridMoveDirection.y = 0;
+				gridMoveDirection.x = -1;
+			}
 		}
 		else if (Input.GetKeyDown(KeyCode.D)) {
-			_direction = Vector2.right;
+			if (gridMoveDirection.x != -1) {
+				gridMoveDirection.y = 0;
+				gridMoveDirection.x = +1;
+			}
 		}
-    }
-
-	private void FixedUpdate() {
-		this.transform.position = new Vector3(
-			Mathf.Round(this.transform.position.x) + _direction.x,
-			Mathf.Round(this.transform.position.y) + _direction.y,
-			0.0f
-		);
 	}
+
+	private void HandleGridMove() {
+
+		gridMoveTimer += Time.deltaTime;
+		if (gridMoveTimer >= gridMoveTimerMax) {
+			gridPosition += gridMoveDirection;
+			gridMoveTimer -= gridMoveTimerMax;
+			transform.position = new Vector3(gridPosition.x,gridPosition.y);
+			transform.eulerAngles = new Vector3(0, 0, RotateSprite(gridMoveDirection) - 90);
+		}
+	}
+
+	private float RotateSprite(Vector2Int dir) {
+		float n = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+		if (n < 0) {
+			n += 360;
+		}
+
+		return n;
+	}
+
 }
