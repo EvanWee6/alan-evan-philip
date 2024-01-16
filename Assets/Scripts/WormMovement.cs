@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using CodeMonkey;
+
 public class WormMovement : MonoBehaviour
 {
 	
@@ -9,9 +11,16 @@ public class WormMovement : MonoBehaviour
 	private Vector2Int gridPosition;
 	private float gridMoveTimer;
 	private float gridMoveTimerMax;
-
+	private LevelGrid levelGrid;
 	private int snakeBodySize;
 	private List<Vector2Int> snakeMovePositionList;
+
+
+	
+
+	public void Setup(LevelGrid levelGrid) {
+		this.levelGrid = levelGrid;
+	}
 
 	private void Awake() {
 		gridPosition = new Vector2Int(0,0);
@@ -19,7 +28,7 @@ public class WormMovement : MonoBehaviour
 		gridMoveTimer = gridMoveTimerMax;
 		gridMoveDirection = new Vector2Int(1,0);
 
-		snakeBodySize = 1;
+		snakeBodySize = 5;
 		snakeMovePositionList = new List<Vector2Int>();
 	}	
 
@@ -77,6 +86,8 @@ public class WormMovement : MonoBehaviour
 
 			transform.position = new Vector3(gridPosition.x,gridPosition.y);
 			transform.eulerAngles = new Vector3(0, 0, RotateSprite(gridMoveDirection) - 90);
+
+			levelGrid.SnakeMoved(gridPosition);
 		}
 	}
 
