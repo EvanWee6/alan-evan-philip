@@ -281,6 +281,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &128580315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128580317}
+  - component: {fileID: 128580316}
+  m_Layer: 0
+  m_Name: Coin Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &128580316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128580315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebf3048697ab4f78b04ad2d87ec3026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &128580317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128580315}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.026606977, y: 0.2184422, z: -0.095694155}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &276847119
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +357,7 @@ MonoBehaviour:
   Apple: {fileID: 571491672}
   Worm: {fileID: 1946461845}
   Score: {fileID: 384279784}
+  Coins: {fileID: 128580315}
 --- !u!4 &276847121
 Transform:
   m_ObjectHideFlags: 0
@@ -9393,3 +9438,4 @@ SceneRoots:
   - {fileID: 276847121}
   - {fileID: 571491674}
   - {fileID: 384279786}
+  - {fileID: 128580317}
