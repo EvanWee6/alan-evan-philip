@@ -14,17 +14,32 @@ public class WormMovement : MonoBehaviour
 	private LevelGrid levelGrid;
 	private int snakeBodySize;
 	private List<Vector2Int> snakeMovePositionList;
-
-
 	
 
 	public void Setup(LevelGrid levelGrid) {
 		this.levelGrid = levelGrid;
 	}
 
+	public void ChangeSpeed(string type)
+	{
+		if (type == "point")
+		{
+			if ((gridMoveTimerMax - 0.05) > 0.04)
+			{
+				gridMoveTimerMax -= 0.05f;
+			}
+
+		}
+	}
+
+	public float GetSpeed()
+	{
+		return gridMoveTimerMax;
+	}
+
 	private void Awake() {
 		gridPosition = new Vector2Int(0,0);
-		gridMoveTimerMax = .2f;
+		gridMoveTimerMax = 1f;
 		gridMoveTimer = gridMoveTimerMax;
 		gridMoveDirection = new Vector2Int(1,0);
 
@@ -80,14 +95,16 @@ public class WormMovement : MonoBehaviour
 			}
 			for (int i = 0; i < snakeMovePositionList.Count; i++) {
 				Vector2Int snakeMovePosition = snakeMovePositionList[i];
-				World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * 0.5f, Color.white);
+
+                World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * 0.5f, Color.white);
 				FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
-			}
+
+            }
 
 			transform.position = new Vector3(gridPosition.x,gridPosition.y);
 			transform.eulerAngles = new Vector3(0, 0, RotateSprite(gridMoveDirection) - 90);
 
-			levelGrid.SnakeMoved(gridPosition);
+			//levelGrid.SnakeMoved(gridPosition);
 		}
 	}
 

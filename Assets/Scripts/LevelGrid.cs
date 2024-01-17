@@ -10,6 +10,11 @@ public class LevelGrid {
 	private int width;
 	private int height;
 
+	private string spriteNames = "Apple";
+	private Sprite[] sprites;
+	private SpriteRenderer spriteR;
+
+
 
 	public LevelGrid(int width, int height) {
 		this.width = width;
@@ -20,19 +25,26 @@ public class LevelGrid {
 		FunctionPeriodic.Create(SpawnFood, 1f);
 	}
 
-	private void SpawnFood() {
+	void Start()
+	{
+        spriteR = spriteR.gameObject.GetComponent<SpriteRenderer>();
+        sprites = Resources.LoadAll<Sprite>(spriteNames);
+
+    }
+
+    private void SpawnFood() {
 
 		foodGridPosition = new Vector2Int(Random.Range(0,width), Random.Range(0,height));
 
 		GameObject foodGameObject = new GameObject("Food", typeof(SpriteRenderer));
-		foodGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.foodSprite;
+		spriteR.sprite = sprites[0];
 		foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y);
 
 	}    
 
 	public void SnakeMoved(Vector2Int snakeGridPosition) {
         if (snakeGridPosition == foodGridPosition) {
-            Object.Destroy(foodGameObject);
+			Object.Destroy(sprites[0]);
             SpawnFood();
         }
     }
