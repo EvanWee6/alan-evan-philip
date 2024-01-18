@@ -86,11 +86,14 @@ public class WormMovement : MonoBehaviour
 
 		gridMoveTimer += Time.deltaTime;
 		if (gridMoveTimer >= gridMoveTimerMax) {
-			gridPosition += gridMoveDirection;
-			gridMoveTimer -= gridMoveTimerMax;
-			snakeMovePositionList.Insert(0, gridPosition);
+			
+            gridMoveTimer -= gridMoveTimerMax;
+            snakeMovePositionList.Insert(0, gridPosition);
 
-			if (snakeMovePositionList.Count  >= snakeBodySize + 1) {
+            gridPosition += gridMoveDirection;
+
+
+            if (snakeMovePositionList.Count  >= snakeBodySize + 1) {
 				snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
 			}
 			for (int i = 0; i < snakeMovePositionList.Count; i++) {
