@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BounceText : MonoBehaviour
 {
-    public float bounceHeight = 0.5f;
+    public float bounceHeight = 100f;
     public float bounceSpeed = 2.0f;
 
     private Vector3 startPos;
