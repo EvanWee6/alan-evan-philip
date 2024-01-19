@@ -10,6 +10,8 @@ public class FoodSpawning : MonoBehaviour
     public GameObject Score;
 	public GameObject Coins;
 
+    [SerializeField] public AudioSource appleEatSoundEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,9 @@ public class FoodSpawning : MonoBehaviour
         
         if (Worm.transform.position.x == Apple.transform.position.x && Worm.transform.position.y == Apple.transform.position.y)
         {
+
+            appleEatSoundEffect.Play();
+
             Score.GetComponent<ScoreListener>().UpdateScore();
             Debug.Log(Score.GetComponent<ScoreListener>().GetScore());
 
