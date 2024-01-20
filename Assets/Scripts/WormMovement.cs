@@ -270,6 +270,19 @@ public class WormMovement : MonoBehaviour
                 snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
             }
 
+            /*
+            foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList) 
+            {
+                Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
+                if (gridPosition == snakeBodyPartGridPosition)
+                {
+                    //game over!!
+                    CMDebug.TextPopup("dead", transform.position); 
+                }
+            }
+            */
+            //this is needed later for when worm dies (but snakeMovePosition currently doesn't exist, so uncomment later on when needed)
+
             /*for (int i = 0; i < snakeMovePositionList.Count; i++) {
                 Vector2Int snakeMovePosition = snakeMovePositionList[i];
                 World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * .5f, Color.white);
@@ -359,7 +372,13 @@ public class WormMovement : MonoBehaviour
             this.gridPosition = gridPosition;
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
         }
-
+        /*
+        public Vector2Int GetGridPosition()
+        {
+            return snakeMovePosition.GetGridPosition();
+        }
+        */
+        //this is needed later for when worm dies (but snakeMovePosition currently doesn't exist, so uncomment later on when needed)
 
         public void SetRotation(float angle)
         {
