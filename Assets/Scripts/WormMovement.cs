@@ -10,10 +10,10 @@
 // 	private Vector2Int gridMoveDirection;
 // 	private Vector2Int gridPosition;
 // 	private float gridMoveTimer;
-// 	private float gridMoveTimerMax;
+// 	private float speed;
 // 	private LevelGrid levelGrid;
 // 	private int wormBodySize;
-// 	private List<Vector2Int> snakeMovePositionList;
+// 	private List<Vector2Int> WormMovePositionList;
 
 // 	private List<Transform> wormBodyTransformList;
 
@@ -26,9 +26,9 @@
 // 	{
 // 		if (type == "point")
 // 		{
-// 			if ((gridMoveTimerMax - 0.05) > 0.04)
+// 			if ((speed - 0.05) > 0.04)
 // 			{
-// 				gridMoveTimerMax -= 0.05f;
+// 				speed -= 0.05f;
 
 // 				if (wormBodySize <= 5) {
 // 					wormBodySize += 1;
@@ -41,17 +41,17 @@
 
 // 	public float GetSpeed()
 // 	{
-// 		return gridMoveTimerMax;
+// 		return speed;
 // 	}
 
 // 	private void Awake() {
 // 		gridPosition = new Vector2Int(0,0);
-// 		gridMoveTimerMax = 1f;
-// 		gridMoveTimer = gridMoveTimerMax;
+// 		speed = 1f;
+// 		gridMoveTimer = speed;
 // 		gridMoveDirection = new Vector2Int(1,0);
 
 // 		wormBodySize = 1;
-// 		snakeMovePositionList = new List<Vector2Int>();
+// 		WormMovePositionList = new List<Vector2Int>();
 
 // 		wormBodyTransformList = new List<Transform>();
 // 	}	
@@ -94,23 +94,23 @@
 // 	private void HandleGridMove() {
 
 // 		gridMoveTimer += Time.deltaTime;
-// 		if (gridMoveTimer >= gridMoveTimerMax) {
+// 		if (gridMoveTimer >= speed) {
 
-//            gridMoveTimer -= gridMoveTimerMax;
-//            snakeMovePositionList.Insert(0, gridPosition);
+//            gridMoveTimer -= speed;
+//            WormMovePositionList.Insert(0, gridPosition);
 
 //            gridPosition += gridMoveDirection;
 
 
 
-//            if (snakeMovePositionList.Count  >= wormBodySize + 1) {
-// 				snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
+//            if (WormMovePositionList.Count  >= wormBodySize + 1) {
+// 				WormMovePositionList.RemoveAt(WormMovePositionList.Count - 1);
 // 			}
-// 			//for (int i = 0; i < snakeMovePositionList.Count; i++) {
-// 				//Vector2Int snakeMovePosition = snakeMovePositionList[i];
+// 			//for (int i = 0; i < WormMovePositionList.Count; i++) {
+// 				//Vector2Int wormMovePosition = WormMovePositionList[i];
 
-//                //World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * 0.5f, Color.white);
-// 				//FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
+//                //World_Sprite worldSprite = World_Sprite.Create(new Vector3(wormMovePosition.x, wormMovePosition.y), Vector3.one * 0.5f, Color.white);
+// 				//FunctionTimer.Create(worldSprite.DestroySelf, speed);
 
 //            //}
 
@@ -120,12 +120,12 @@
 // 			transform.eulerAngles = new Vector3(0, 0, RotateSprite(gridMoveDirection) - 90);
 
 // 			for (int i=0;i < wormBodyTransformList.Count; i++) {
-// 				Vector3 wormBodyPosition = new Vector3(snakeMovePositionList[i].x, snakeMovePositionList[i].y);
+// 				Vector3 wormBodyPosition = new Vector3(WormMovePositionList[i].x, WormMovePositionList[i].y);
 // 				wormBodyTransformList[i].transform.eulerAngles = new Vector3(0,0,RotateSprite(gridMoveDirection) - 90);
 // 				wormBodyTransformList[i].position = wormBodyPosition;
 // 			}
 
-// 			//levelGrid.SnakeMoved(gridPosition);
+// 			//levelGrid.wormMoved(gridPosition);
 // 		}
 // 	}
 
@@ -147,7 +147,7 @@
 
 // 	public List<Vector2Int> GetWormGridPositionList() {
 // 		List<Vector2Int> gridPositionList = new List<Vector2Int>() {gridPosition};
-// 		gridPositionList.AddRange(snakeMovePositionList);
+// 		gridPositionList.AddRange(WormMovePositionList);
 // 		return gridPositionList;
 // 	}
 
@@ -165,11 +165,11 @@ public class WormMovement : MonoBehaviour
     private Vector2Int gridMoveDirection;
     private Vector2Int gridPosition;
     private float gridMoveTimer;
-    private float gridMoveTimerMax;
+    private float speed;
     private LevelGrid levelGrid;
-    private int snakeBodySize;
-    private List<Vector2Int> snakeMovePositionList;
-    private List<SnakeBodyPart> snakeBodyPartList;
+    private int WormBodySize;
+    private List<Vector2Int> WormMovePositionList;
+    private List<WormBodyPart> WormBodyPartList;
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -180,31 +180,35 @@ public class WormMovement : MonoBehaviour
     {
         if (type == "point")
         {
-            if ((gridMoveTimerMax - 0.05) > 0.04)
+            if ((speed - 0.05) > 0.04)
             {
-                gridMoveTimerMax -= 0.05f;
+                speed -= 0.05f;
 
-                if (snakeBodySize <= 5)
+                if (WormBodySize <= 5)
                 {
-                    snakeBodySize += 1;
-                    CreateSnakeBodyPart();
+                    WormBodySize += 1;
+                    CreateWormBodyPart();
                 }
             }
 
+        }
+        else if (type == "slow")
+        {
+            speed -= 0.5f;
         }
     }
 
     private void Awake()
     {
         gridPosition = new Vector2Int(0,0);
-        gridMoveTimerMax = .5f;
-        gridMoveTimer = gridMoveTimerMax;
+        speed = 1f;
+        gridMoveTimer = speed;
         gridMoveDirection = new Vector2Int(1, 0);
 
-        snakeMovePositionList = new List<Vector2Int>();
-        snakeBodySize = 0;
+        WormMovePositionList = new List<Vector2Int>();
+        WormBodySize = 0;
 
-        snakeBodyPartList = new List<SnakeBodyPart>();
+        WormBodyPartList = new List<WormBodyPart>();
     }
 
     private void Update()
@@ -215,7 +219,7 @@ public class WormMovement : MonoBehaviour
 
     public float GetSpeed()
     {
-        return gridMoveTimerMax;
+        return speed;
     }
 
     private void HandleInput()
@@ -257,75 +261,75 @@ public class WormMovement : MonoBehaviour
     private void HandleGridMovement()
     {
         gridMoveTimer += Time.deltaTime;
-        if (gridMoveTimer >= gridMoveTimerMax)
+        if (gridMoveTimer >= speed)
         {
-            gridMoveTimer -= gridMoveTimerMax;
+            gridMoveTimer -= speed;
 
-            snakeMovePositionList.Insert(0, gridPosition);
+            WormMovePositionList.Insert(0, gridPosition);
 
             gridPosition += gridMoveDirection;
 
-            if (snakeMovePositionList.Count >= snakeBodySize + 1)
+            if (WormMovePositionList.Count >= WormBodySize + 1)
             {
-                snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
+                WormMovePositionList.RemoveAt(WormMovePositionList.Count - 1);
             }
 
             /*
-            foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList) 
+            foreach (WormBodyPart WormBodyPart in WormBodyPartList) 
             {
-                Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
-                if (gridPosition == snakeBodyPartGridPosition)
+                Vector2Int WormBodyPartGridPosition = WormBodyPart.GetGridPosition();
+                if (gridPosition == WormBodyPartGridPosition)
                 {
                     //game over!!
                     CMDebug.TextPopup("dead", transform.position); 
                 }
             }
             */
-            //this is needed later for when worm dies (but snakeMovePosition currently doesn't exist, so uncomment later on when needed)
+            //this is needed later for when worm dies (but wormMovePosition currently doesn't exist, so uncomment later on when needed)
 
-            /*for (int i = 0; i < snakeMovePositionList.Count; i++) {
-                Vector2Int snakeMovePosition = snakeMovePositionList[i];
-                World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * .5f, Color.white);
-                FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
+            /*for (int i = 0; i < WormMovePositionList.Count; i++) {
+                Vector2Int wormMovePosition = WormMovePositionList[i];
+                World_Sprite worldSprite = World_Sprite.Create(new Vector3(wormMovePosition.x, wormMovePosition.y), Vector3.one * .5f, Color.white);
+                FunctionTimer.Create(worldSprite.DestroySelf, speed);
             }*/
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection) - 90);
 
-            UpdateSnakeBodyParts();
+            UpdateWormBodyParts();
         }
     }
 
-    private void CreateSnakeBodyPart()
+    private void CreateWormBodyPart()
     {
-        SnakeBodyPart newBodyPart = new SnakeBodyPart(snakeBodyPartList.Count);
+        WormBodyPart newBodyPart = new WormBodyPart(WormBodyPartList.Count);
         newBodyPart.SetGridPosition(gridPosition);
-        // snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
-        snakeBodyPartList.Add(newBodyPart);
+        // WormBodyPartList.Add(new WormBodyPart(WormBodyPartList.Count));
+        WormBodyPartList.Add(newBodyPart);
     }
 
-    private void UpdateSnakeBodyParts()
+    private void UpdateWormBodyParts()
     {
-        for (int i = 0; i < snakeBodyPartList.Count; i++)
+        for (int i = 0; i < WormBodyPartList.Count; i++)
         {
-            snakeBodyPartList[i].SetGridPosition(snakeMovePositionList[i]);
-            // if (i < snakeMovePositionList.Count - 1)
+            WormBodyPartList[i].SetGridPosition(WormMovePositionList[i]);
+            // if (i < WormMovePositionList.Count - 1)
             // {
-            //     Vector2Int direction = snakeMovePositionList[i] - snakeMovePositionList[i + 1];
-            //     snakeBodyPartList[i].SetRotation(GetAngleFromVector(direction));
+            //     Vector2Int direction = WormMovePositionList[i] - WormMovePositionList[i + 1];
+            //     WormBodyPartList[i].SetRotation(GetAngleFromVector(direction));
             // }
 
             if (gridMoveDirection.x == 0 && gridMoveDirection.y == 1) {
-                snakeBodyPartList[i].SetRotate("UP");
+                WormBodyPartList[i].SetRotate("UP");
             }
             else if (gridMoveDirection.x == 0 && gridMoveDirection.y == -1) {
-                snakeBodyPartList[i].SetRotate("DOWN");
+                WormBodyPartList[i].SetRotate("DOWN");
             }
             else if (gridMoveDirection.x == -1 && gridMoveDirection.y == 0) {
-                snakeBodyPartList[i].SetRotate("LEFT");
+                WormBodyPartList[i].SetRotate("LEFT");
             }
             else if (gridMoveDirection.x == 1 && gridMoveDirection.y == 0) {
-                snakeBodyPartList[i].SetRotate("RIGHT");
+                WormBodyPartList[i].SetRotate("RIGHT");
             }
             
         }
@@ -344,27 +348,27 @@ public class WormMovement : MonoBehaviour
         return gridPosition;
     }
 
-    // Return the full list of positions occupied by the snake: Head + Body
-    public List<Vector2Int> GetFullSnakeGridPositionList()
+    // Return the full list of positions occupied by the worm: Head + Body
+    public List<Vector2Int> GetFullWormGridPositionList()
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>() { gridPosition };
-        gridPositionList.AddRange(snakeMovePositionList);
+        gridPositionList.AddRange(WormMovePositionList);
         return gridPositionList;
     }
 
-    private class SnakeBodyPart
+    private class WormBodyPart
     {
 
         private Vector2Int gridPosition;
         private Transform transform;
 
-        public SnakeBodyPart(int bodyIndex)
+        public WormBodyPart(int bodyIndex)
         {
-            GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
-            snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.wormBody;
-            //snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = -1 - bodyIndex;
-            snakeBodyGameObject.transform.localScale = new Vector3(2, 2, 2);
-            transform = snakeBodyGameObject.transform;
+            GameObject wormBodyGameObject = new GameObject("wormBody", typeof(SpriteRenderer));
+            wormBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.wormBody;
+            //wormBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = -1 - bodyIndex;
+            wormBodyGameObject.transform.localScale = new Vector3(2, 2, 2);
+            transform = wormBodyGameObject.transform;
         }
 
         public void SetGridPosition(Vector2Int gridPosition)
@@ -375,10 +379,10 @@ public class WormMovement : MonoBehaviour
         /*
         public Vector2Int GetGridPosition()
         {
-            return snakeMovePosition.GetGridPosition();
+            return wormMovePosition.GetGridPosition();
         }
         */
-        //this is needed later for when worm dies (but snakeMovePosition currently doesn't exist, so uncomment later on when needed)
+        //this is needed later for when worm dies (but wormMovePosition currently doesn't exist, so uncomment later on when needed)
 
         public void SetRotation(float angle)
         {
