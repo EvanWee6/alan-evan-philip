@@ -9,7 +9,6 @@ public class Highscore : MonoBehaviour
 {
     private Transform entryContainer;
     private Transform entryTemplate;
-    //private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransfromList;
 
     public void Awake()
@@ -33,7 +32,7 @@ public class Highscore : MonoBehaviour
             highscores.highscoreEntryList = new List<HighscoreEntry>();
         }
 
-        // Sorting algorithm
+        
         //sorting algorithm, chatgpt fixed error
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
         {
