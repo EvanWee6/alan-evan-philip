@@ -8,9 +8,7 @@ public class FoodSpawning : MonoBehaviour
     public GameObject Worm;
     public GameObject Score;
 	public GameObject Coins;
-
-    private bool goldenOnMap = false;
-
+    public GameObject GoldenApple;
 
 	Apple apple;
 
@@ -45,6 +43,7 @@ public class FoodSpawning : MonoBehaviour
         {
             appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
             appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.redApple;
+            appleGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
             appleGameObject.transform.localScale = new Vector3(2, 2, 2);
             transform = appleGameObject.transform;   
         }
@@ -60,14 +59,6 @@ public class FoodSpawning : MonoBehaviour
         {
             transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
         }
-    }
-
-    public void ChanceGoldenApple()
-    {
-        int n = Random.Range(0, 2);
-
-        Debug.Log($"random num: {n}");
-
     }
 
     // Update is called once per frame
@@ -91,6 +82,9 @@ public class FoodSpawning : MonoBehaviour
 
 			
 			apple.changePosition();
+
+            GoldenApple.GetComponent<GoldenAppleScript>().ChanceSpawn();
+
         }
         
     }

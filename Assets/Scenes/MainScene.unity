@@ -403,6 +403,7 @@ MonoBehaviour:
   Worm: {fileID: 1946461845}
   Score: {fileID: 384279784}
   Coins: {fileID: 128580315}
+  GoldenApple: {fileID: 1540087915}
   appleEatSoundEffect: {fileID: 2068155169}
 --- !u!4 &270010217
 Transform:
@@ -1347,8 +1348,8 @@ Transform:
   m_GameObject: {fileID: 700875572}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2166.12, y: -972.58, z: 0}
-  m_LocalScale: {x: 2.3273475, y: 2.347773, z: 2.3484385}
+  m_LocalPosition: {x: -80.848, y: 24.9, z: 0}
+  m_LocalScale: {x: 23.005028, y: 24.412388, z: 24.419308}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 715696242}
@@ -9158,8 +9159,8 @@ Transform:
   m_GameObject: {fileID: 715696240}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1197.53, y: 435, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4.39, y: 4.39, z: 2.195}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 700875573}
@@ -10053,8 +10054,8 @@ Canvas:
   m_GameObject: {fileID: 1623945316}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -10808,7 +10809,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bed7d37c5405ea545ac7affbea2e6891, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -24,6 +24,7 @@ public class GoldenAppleScript : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3Int(-40, 0);
+        this.GetComponent<SpriteRenderer>().sortingOrder = 1;
         transform.localScale = new Vector3Int(3, 3, 3);
 
         onMap = false;
@@ -31,12 +32,15 @@ public class GoldenAppleScript : MonoBehaviour
 
     public void ChanceSpawn()
     {
-        int n = Random.Range(1, 6);
+        if (Score.GetComponent<ScoreListener>().GetScore() >= 5) {
 
-        if (n == 1)
-        {
-            transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
-            onMap = true;
+            int n = Random.Range(1, 6);
+
+            if (n == 1)
+            {
+                transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
+                onMap = true;
+            }
         }
     }
 
@@ -52,11 +56,11 @@ public class GoldenAppleScript : MonoBehaviour
     {
 
         if (Worm.transform.position.x == transform.position.x && Worm.transform.position.y == transform.position.y) {
-            if (Score.GetComponent<ScoreListener>().GetScore() >= 2)
-            {
+            
                 onMap = false;
                 SlowSpeed();
-            }
+			    transform.position = new Vector3Int(-40,0);
+            
         }
     }
 }
