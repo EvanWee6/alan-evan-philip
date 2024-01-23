@@ -10,7 +10,7 @@ public class FoodSpawning : MonoBehaviour
 	public GameObject Coins;
     public GameObject GoldenApple;
 
-	Apple apple;
+	private Apple apple;
 
     [SerializeField] public AudioSource appleEatSoundEffect;
 
@@ -26,40 +26,39 @@ public class FoodSpawning : MonoBehaviour
 	private Apple CreateApple() {
 
         Apple apple = new Apple();
-        apple.RedApple();
-
+        apple.AppleInit();
 		return apple;
 	}
 
-    private class Apple
-    {
+    // private class Apple
+    // {
 
-        public Vector2Int gridPosition;
-        public Transform transform;
+    //     public Vector2Int gridPosition;
+    //     public Transform transform;
 
-        GameObject appleGameObject;
+    //     GameObject appleGameObject;
 
-        public void RedApple()
-        {
-            appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
-            appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.redApple;
-            appleGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            appleGameObject.transform.localScale = new Vector3(2, 2, 2);
-            transform = appleGameObject.transform;   
-        }
+    //     public void RedApple()
+    //     {
+    //         appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
+    //         appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.redApple;
+    //         appleGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+    //         appleGameObject.transform.localScale = new Vector3(2, 2, 2);
+    //         transform = appleGameObject.transform;   
+    //     }
 
-        void SetGridPosition(Vector2Int gridPosition)
-        {
-            this.gridPosition = gridPosition;
-            transform.position = new Vector3(gridPosition.x, gridPosition.y);
-        }
+    //     void SetGridPosition(Vector2Int gridPosition)
+    //     {
+    //         this.gridPosition = gridPosition;
+    //         transform.position = new Vector3(gridPosition.x, gridPosition.y);
+    //     }
 
 
-        public void changePosition()
-        {
-            transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
-        }
-    }
+    //     public void changePosition()
+    //     {
+    //         transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
+    //     }
+    // }
 
     // Update is called once per frame
     void Update()

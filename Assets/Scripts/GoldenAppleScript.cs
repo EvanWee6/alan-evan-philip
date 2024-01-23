@@ -9,6 +9,8 @@ public class GoldenAppleScript : MonoBehaviour
     public GameObject Score;
 
     private bool onMap;
+        
+    GoldenApple goldenApple = new GoldenApple();
 
     public bool checkOnMap()
     {
@@ -23,9 +25,12 @@ public class GoldenAppleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3Int(-40, 0);
-        this.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        transform.localScale = new Vector3Int(3, 3, 3);
+
+        goldenApple.AppleInit();
+        goldenApple.transform.localScale = new Vector3Int(3,3,3);
+        goldenApple.transform.position = new Vector3Int(-40, 0);
+        // this.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        // transform.localScale = new Vector3Int(3, 3, 3);
 
         onMap = false;
     }
@@ -37,8 +42,9 @@ public class GoldenAppleScript : MonoBehaviour
             int n = Random.Range(1, 6);
 
             if (n == 1)
-            {
-                transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
+            {  
+                goldenApple.changePosition();
+                // transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
                 onMap = true;
             }
         }
@@ -55,11 +61,11 @@ public class GoldenAppleScript : MonoBehaviour
     void Update()
     {
 
-        if (Worm.transform.position.x == transform.position.x && Worm.transform.position.y == transform.position.y) {
+        if (Worm.transform.position.x == goldenApple.transform.position.x && Worm.transform.position.y == goldenApple.transform.position.y) {
             
                 onMap = false;
                 SlowSpeed();
-			    transform.position = new Vector3Int(-40,0);
+			    goldenApple.transform.position = new Vector3Int(-40,0);
             
         }
     }
