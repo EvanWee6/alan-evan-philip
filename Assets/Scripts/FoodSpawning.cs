@@ -9,11 +9,13 @@ public class FoodSpawning : MonoBehaviour
     public GameObject Score;
 	public GameObject Coins;
 
+    private bool goldenOnMap = false;
+
+
 	Apple apple;
 
     [SerializeField] public AudioSource appleEatSoundEffect;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -24,64 +26,49 @@ public class FoodSpawning : MonoBehaviour
     }
 
 	private Apple CreateApple() {
-		
-		Apple apple = new Apple();
-		apple.RedApple();
 
-		//apple.SetGridPosition(new Vector2Int((Random.Range(-15, 19)),(Random.Range(-9, 9))));
+        Apple apple = new Apple();
+        apple.RedApple();
 
 		return apple;
 	}
 
-	private class Apple { 
-			
-	    public Vector2Int gridPosition;
+    private class Apple
+    {
+
+        public Vector2Int gridPosition;
         public Transform transform;
 
-		GameObject appleGameObject;
+        GameObject appleGameObject;
 
         public void RedApple()
         {
             appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
             appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.redApple;
             appleGameObject.transform.localScale = new Vector3(2, 2, 2);
-            transform = appleGameObject.transform;
+            transform = appleGameObject.transform;   
         }
 
-		public void GoldenApple() {
-            appleGameObject = new GameObject("GoldenApple", typeof(SpriteRenderer));
-            appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.goldenApple;
-            appleGameObject.transform.localScale = new Vector3(2, 2, 2);
-            transform = appleGameObject.transform;
-		}
-
-		public void SetGridPosition(Vector2Int gridPosition)
+        void SetGridPosition(Vector2Int gridPosition)
         {
             this.gridPosition = gridPosition;
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
         }
 
 
-
         public void changePosition()
         {
-            if (appleGameObject.GetComponent<SpriteRenderer>().sprite == GameAssets.i.redApple)
-            {
-                appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.goldenApple;
-                appleGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)), 0);
-            }
-            else if (appleGameObject.GetComponent<SpriteRenderer>().sprite == GameAssets.i.goldenApple)
-            {
-                appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.redApple;
-                appleGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)), 0);
-            }
+            transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
         }
+    }
 
-		
+    public void ChanceGoldenApple()
+    {
+        int n = Random.Range(0, 2);
 
-	}
+        Debug.Log($"random num: {n}");
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -104,8 +91,6 @@ public class FoodSpawning : MonoBehaviour
 
 			
 			apple.changePosition();
-
-            //Apple.transform.position = new Vector3Int((Random.Range(-15, 19)),(Random.Range(-9, 9)));
         }
         
     }
