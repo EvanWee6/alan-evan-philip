@@ -16,6 +16,10 @@ public class WormMovement : MonoBehaviour
     private List<Vector2Int> WormMovePositionList;
     private List<WormBodyPart> WormBodyPartList;
 
+	
+	public GameObject Score;
+    public GameObject Timer;
+
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
@@ -52,6 +56,10 @@ public class WormMovement : MonoBehaviour
         Debug.Log($"Back to original speed: {originalSpeed}");
     }
 
+    void Start() {
+        Timer.GetComponent<TimerScript>().StartTimer();
+    }
+
     private void Awake()
     {
         gridPosition = new Vector2Int(0,0);
@@ -63,15 +71,21 @@ public class WormMovement : MonoBehaviour
         WormBodySize = 0;
 
         WormBodyPartList = new List<WormBodyPart>();
+	
     }
 
     public void onLose() {
+        Timer.GetComponent<TimerScript>().EndTimer();
+        float time = Timer.GetComponent<TimerScript>().GetTime();
+
         gridMoveDirection = new Vector2Int(0,0);
         Debug.Log("You lose!");
         transform.position = new Vector3(0,0);
         for (int i=0;i<WormBodyPartList.Count;i++) {
             WormBodyPartList[i].SetGridPosition(new Vector2Int(0,0));
         }
+		Debug.ClearDeveloperConsole();
+		Debug.Log($"Final Stats\n score:{Score.GetComponent<ScoreListener>().GetScore()}\ntime: {time}");
     }
     private void Update()
     {
