@@ -61,6 +61,7 @@ public class Highscores : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetString("highscoreTable"));
 
+
     }
 
     private void CreateHighscoreEntryTransfrom(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
