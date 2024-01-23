@@ -1,67 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Highscores : MonoBehaviour
+public class Highscore : MonoBehaviour
 {
     private Transform entryContainer;
     private Transform entryTemplate;
-    private List<HighscoreEntry> highscoreEntryList;
+    //private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransfromList;
 
     public void Awake()
     {
-
-
         entryContainer = transform.Find("HighscoreInputContainer");
         entryTemplate = entryContainer.Find("HighscoreInputTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-        highscoreEntryList = new List<HighscoreEntry>()
-        {
-            new HighscoreEntry{score = 113, name = "xojoballs"},
-            new HighscoreEntry{score = 113, name = "cojoballs"},
-            new HighscoreEntry{score = 320, name = "jojoballs"},
-            new HighscoreEntry{score = 413, name = "gojoballs"},
-            new HighscoreEntry{score = 510, name = "hojoballs"},
-            new HighscoreEntry{score = 630, name = "gojoballs"},
-            new HighscoreEntry{score = 720, name = "gojoballs"},
-            new HighscoreEntry{score = 810, name = "ojoballs"},
-            new HighscoreEntry{score = 910, name = "Lojoballs"},
-            new HighscoreEntry{score = 160, name = "gojoballs"},
-        };
+        AddHighscoreEntry(1000, "gojo");
+        AddHighscoreEntry(10000, "geto");
+        AddHighscoreEntry(9999, "bob");
+        AddHighscoreEntry(999999, "k");
 
-        //sorting algorithm, chatgpt fixed error
-        for (int i = 0; i < highscoreEntryList.Count; i++)
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        if (highscores == null)
         {
-            for (int j = i + 1; j < highscoreEntryList.Count; j++)
+            highscores = new Highscores();
+            highscores.highscoreEntryList = new List<HighscoreEntry>();
+        }
+
+        // Sorting algorithm
+        //sorting algorithm, chatgpt fixed error
+        for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
+        {
+            for (int j = i + 1; j < highscores.highscoreEntryList.Count; j++)
             {
-                if (highscoreEntryList[j].score > highscoreEntryList[i].score || (highscoreEntryList[j].score == highscoreEntryList[i].score &&
-                     string.Compare(highscoreEntryList[j].name, highscoreEntryList[i].name) < 0))
+                if (highscores.highscoreEntryList[j].score > highscores.highscoreEntryList[i].score || (highscores.highscoreEntryList[j].score == highscores.highscoreEntryList[i].score &&
+                     string.Compare(highscores.highscoreEntryList[j].name, highscores.highscoreEntryList[i].name) < 0))
                 {
-                    HighscoreEntry tmp = highscoreEntryList[i];
-                    highscoreEntryList[i] = highscoreEntryList[j];
-                    highscoreEntryList[j] = tmp;
+                    HighscoreEntry tmp = highscores.highscoreEntryList[i];
+                    highscores.highscoreEntryList[i] = highscores.highscoreEntryList[j];
+                    highscores.highscoreEntryList[j] = tmp;
                 }
             }
         }
 
+        // Trimming to top 10 entries
+        if (highscores.highscoreEntryList.Count > 10)
+        {
+            highscores.highscoreEntryList = highscores.highscoreEntryList.Take(10).ToList();
+        }
+
         highscoreEntryTransfromList = new List<Transform>();
-        foreach (HighscoreEntry highscoreEntry in highscoreEntryList)
+        foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
         {
             CreateHighscoreEntryTransfrom(highscoreEntry, entryContainer, highscoreEntryTransfromList);
         }
-
-        //Highscores highscores = new Highscores { highscoreEntryList = highscoreEntryList };
-        string json = JsonUtility.ToJson(highscoreEntryList);
-        PlayerPrefs.SetString("highscoreTable", json);
-        PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetString("highscoreTable"));
-
-
     }
 
     private void CreateHighscoreEntryTransfrom(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
@@ -97,15 +95,33 @@ public class Highscores : MonoBehaviour
         
     }
 
-    /*
-    private class Highscore
+    private void AddHighscoreEntry(int score, string name)
+    {
+        //creates highscore entry
+        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
+
+        //loads the saved entries
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        //adds the new entry to the highscores
+        highscores.highscoreEntryList.Add(highscoreEntry);
+
+
+        //saves the updated highscores
+        string json = JsonUtility.ToJson(highscores);
+        PlayerPrefs.SetString("highscoreTable", json);
+        PlayerPrefs.Save();
+    }
+    
+    private class Highscores
     {
         public List<HighscoreEntry> highscoreEntryList;
     }
-    */
+    
 
-    [System.Serializable]
     //this is for each individual highscore entry
+    [System.Serializable]
     private class HighscoreEntry
     {
         public int score;
