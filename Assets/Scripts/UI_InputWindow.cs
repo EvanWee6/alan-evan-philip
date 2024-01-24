@@ -9,40 +9,38 @@ using CodeMonkey;
 
 public class UI_InputWindow : MonoBehaviour
 {
-    
- 
-    public GameObject InputButtons;
-    private string input;
+    [SerializeField] private Highscore highscoreTable;
 
-    // Start is called before the first frame update
-
+    private string playerName;  // Variable to store the player's name
 
     public void Back()
     {
         SceneManager.LoadScene("mainmenu");
     }
-    
+
     public void ReadUserInput(string s)
     {
-        input = s;
+        playerName = s;  // Capture the player's name input
     }
 
     public void Okay(string s)
     {
-        input = s;
-        Debug.Log(input);
-        SceneManager.LoadScene("MainScene");
+        Debug.Log(playerName);
+
+        SceneManager.LoadScene("MainScene"); 
     }
-    
+
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
 
     void Start()
     {
-        
-    }
 
-    // Update is called once per frame
+    }
     void Update()
     {
-        
+
     }
 }

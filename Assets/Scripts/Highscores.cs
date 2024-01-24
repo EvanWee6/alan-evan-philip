@@ -18,10 +18,16 @@ public class Highscore : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
 
-        AddHighscoreEntry(1000, "gojo");
-        AddHighscoreEntry(10000, "geto");
-        AddHighscoreEntry(9999, "bob");
-        AddHighscoreEntry(999999, "k");
+        UI_InputWindow inputWindow = GetComponent<UI_InputWindow>();
+        string playerName = "NULL";
+
+        if (inputWindow != null)
+        {
+            playerName = inputWindow.GetPlayerName();
+        }
+
+        //add test entries here
+        AddHighscoreEntry(1, "phil");
 
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
@@ -94,7 +100,7 @@ public class Highscore : MonoBehaviour
         
     }
 
-    private void AddHighscoreEntry(int score, string name)
+    private void AddHighscoreEntry(int score, string playerName)
     {
         //creates highscore entry
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
