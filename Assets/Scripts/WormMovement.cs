@@ -5,10 +5,12 @@ using CodeMonkey;
 using CodeMonkey.Utils;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class WormMovement : MonoBehaviour
 {
-
+    [SerializeField] private Highscore highscoreTable;
+    [SerializeField] private UI_InputWindow inputWindow;
     private enum Direction
     {
         Left,
@@ -35,6 +37,10 @@ public class WormMovement : MonoBehaviour
 
     public GameObject Score;
     public GameObject Timer;
+
+    private string playerName;
+    private int finalScore;
+
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -67,14 +73,17 @@ public class WormMovement : MonoBehaviour
         }
     }
 
+    public void SetPlayerName(string playerName)
+    {
+        this.playerName = playerName;
+    }
+
     private IEnumerator ResetSpeedAfterDelay(float originalSpeed, float delay)
     {
         yield return new WaitForSeconds(delay);
         speed = originalSpeed;
         Debug.Log($"Back to original speed: {originalSpeed}");
     }
-
-
 
     public void onLose()
     {
@@ -83,17 +92,23 @@ public class WormMovement : MonoBehaviour
         Timer.GetComponent<TimerScript>().EndTimer();
         float time = Timer.GetComponent<TimerScript>().GetTime();
 
-        //gridMoveDirection = new Vector2Int(0, 0);
-        Debug.Log("You lose!");
-        transform.position = new Vector3(0, 0);
-        //for (int i = 0; i < WormBodyPartList.Count; i++)
-        //{
-        //    WormBodyPartList[i].SetGridPosition(new Vector2Int(0, 0));
-        //}
+        int finalScore = Score.GetComponent<ScoreListener>().GetScore();
+
         Debug.ClearDeveloperConsole();
-        Debug.Log($"Final Stats\n score:{Score.GetComponent<ScoreListener>().GetScore()}\ntime: {time}");
+        Debug.Log($"Final Stats\n score:{finalScore}\ntime: {time}");
+
+        // Pass the playerName to the Highscore script
+        UI_InputWindow uI_InputWindow = FindObjectOfType<UI_InputWindow>();
+        if (uI_InputWindow != null)
+        {
+            string playerName = uI_InputWindow.GetPlayerName();
+            highscoreTable.AddHighscoreEntry(finalScore, playerName);
+        }
+
         SceneManager.LoadScene("mainmenu");
     }
+
+
 
     public float GetSpeed()
     {
@@ -105,6 +120,20 @@ public class WormMovement : MonoBehaviour
     //I followed a tutorial for the movement
     private void Awake()
     {
+
+        Debug.Log($"Player Name: {playerName}");
+        /*
+        UI_InputWindow inputWindow = FindObjectOfType<UI_InputWindow>();
+        if (inputWindow != null)
+        {
+            playerName = inputWindow.GetPlayerName();
+        }
+        else
+        {
+            playerName = "NULL";
+        }
+        */
+
         gridPosition = new Vector2Int(0, 0);
         speed = .5f;
         gridMoveTimer = speed;

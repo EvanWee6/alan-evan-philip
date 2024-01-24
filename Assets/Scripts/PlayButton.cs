@@ -9,4 +9,9 @@ public class PlayButton : MonoBehaviour
     {
         SceneManager.LoadScene("NameInputWindow");
     }
+
+    public void Leaderboard()
+    {
+        SceneManager.LoadScene("Leaderboard");
+    }
 }

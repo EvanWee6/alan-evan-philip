@@ -8,6 +8,7 @@ public class ScoreListener : MonoBehaviour
     private int score;
     public GameObject goldenApple;
 
+
     void Start()
     {
         score = 0;

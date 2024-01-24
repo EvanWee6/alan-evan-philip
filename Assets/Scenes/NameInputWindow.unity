@@ -393,7 +393,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 751880637}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -414,6 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 237834813}
   - component: {fileID: 237834814}
+  - component: {fileID: 237834815}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -453,6 +454,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highscoreTable: {fileID: 0}
+  wormMovement: {fileID: 0}
+--- !u!114 &237834815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237834812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc5b72de15daeb42bee2fae83e7218a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &751880635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32770baae334dde49a39c3f2e7f8cf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highscoreTable: {fileID: 0}
+  highscoreTable: {fileID: 237834815}
+  wormMovement: {fileID: 0}
 --- !u!1 &1775168246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1577,7 @@ MonoBehaviour:
       - m_Target: {fileID: 237834814}
         m_TargetAssemblyTypeName: UI_InputWindow, Assembly-CSharp
         m_MethodName: Okay
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
