@@ -49,8 +49,7 @@ public class FoodSpawning : MonoBehaviour
             Worm.GetComponent<WormMovement>().ChangeSpeed("point");
             Debug.Log(Worm.GetComponent<WormMovement>().GetSpeed());
 
-			
-			apple.changePosition();
+            apple.changePosition();
 
             GoldenApple.GetComponent<GoldenAppleScript>().ChanceSpawn();
 

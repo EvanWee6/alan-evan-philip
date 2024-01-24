@@ -4,9 +4,8 @@ using UnityEngine;
 using CodeMonkey;
 using CodeMonkey.Utils;
 using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.SceneManagement;
 
-public class WormMovement : MonoBehaviour
+public class Worm2Script : MonoBehaviour
 {
 
     private enum Direction
@@ -41,7 +40,6 @@ public class WormMovement : MonoBehaviour
         this.levelGrid = levelGrid;
     }
 
-    //Mine 
     public void ChangeSpeed(string type)
     {
         if (type == "point")
@@ -75,11 +73,8 @@ public class WormMovement : MonoBehaviour
     }
 
 
-
     public void onLose()
     {
-        state = State.Dead;
-
         Timer.GetComponent<TimerScript>().EndTimer();
         float time = Timer.GetComponent<TimerScript>().GetTime();
 
@@ -92,25 +87,14 @@ public class WormMovement : MonoBehaviour
         //}
         Debug.ClearDeveloperConsole();
         Debug.Log($"Final Stats\n score:{Score.GetComponent<ScoreListener>().GetScore()}\ntime: {time}");
-        SceneManager.LoadScene("mainmenu");
     }
 
-    public float GetSpeed()
-    {
-        return speed;
-    }
-    //Mine ends
-
-
-    //I followed a tutorial for the movement
     private void Awake()
     {
-        gridPosition = new Vector2Int(0, 0);
-        speed = .5f;
+        gridPosition = new Vector2Int(10, 10);
+        speed = .2f;
         gridMoveTimer = speed;
         gridMoveDirection = Direction.Right;
-
-        transform.localScale = new Vector3Int(3, 3, 3);
 
         snakeMovePositionList = new List<SnakeMovePosition>();
         WormBodySize = 0;
@@ -135,28 +119,28 @@ public class WormMovement : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (gridMoveDirection != Direction.Down)
             {
                 gridMoveDirection = Direction.Up;
             }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (gridMoveDirection != Direction.Up)
             {
                 gridMoveDirection = Direction.Down;
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (gridMoveDirection != Direction.Right)
             {
                 gridMoveDirection = Direction.Left;
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (gridMoveDirection != Direction.Left)
             {
