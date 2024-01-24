@@ -26,7 +26,7 @@ public class Apple {
 
         public void changePosition()
         {
-            transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
+            transform.position = new Vector3Int((Random.Range(-14, 19)), (Random.Range(-9, 9)));
         }
 
 }
@@ -34,7 +34,7 @@ public class Apple {
 public class GoldenApple : Apple {
 
     public override void AppleInit() {
-        gameObject = new GameObject("Apple", typeof(SpriteRenderer));
+        gameObject = new GameObject("GoldenApple", typeof(SpriteRenderer));
         gameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.goldenApple;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         gameObject.transform.localScale = new Vector3(2, 2, 2);

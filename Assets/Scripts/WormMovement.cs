@@ -63,7 +63,7 @@ public class WormMovement : MonoBehaviour
     private void Awake()
     {
         gridPosition = new Vector2Int(0,0);
-        speed = 0.2f;
+        speed = 1f;
         gridMoveTimer = speed;
         gridMoveDirection = new Vector2Int(1, 0);
 
@@ -199,18 +199,18 @@ public class WormMovement : MonoBehaviour
             //     WormBodyPartList[i].SetRotation(GetAngleFromVector(direction));
             // }
 
-            if (gridMoveDirection.x == 0 && gridMoveDirection.y == 1) {
-                WormBodyPartList[i].SetRotate("UP");
-            }
-            else if (gridMoveDirection.x == 0 && gridMoveDirection.y == -1) {
-                WormBodyPartList[i].SetRotate("DOWN");
-            }
-            else if (gridMoveDirection.x == -1 && gridMoveDirection.y == 0) {
-                WormBodyPartList[i].SetRotate("LEFT");
-            }
-            else if (gridMoveDirection.x == 1 && gridMoveDirection.y == 0) {
-                WormBodyPartList[i].SetRotate("RIGHT");
-            }
+            //if (gridMoveDirection.x == 0 && gridMoveDirection.y == 1) {
+            //    WormBodyPartList[i].SetRotate("UP");
+            //}
+            //else if (gridMoveDirection.x == 0 && gridMoveDirection.y == -1) {
+            //    WormBodyPartList[i].SetRotate("DOWN");
+            //}
+            //else if (gridMoveDirection.x == -1 && gridMoveDirection.y == 0) {
+            //    WormBodyPartList[i].SetRotate("LEFT");
+            //}
+            //else if (gridMoveDirection.x == 1 && gridMoveDirection.y == 0) {
+            //    WormBodyPartList[i].SetRotate("RIGHT");
+            //}
             
         }
     } 

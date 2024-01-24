@@ -7,9 +7,10 @@ public class GoldenAppleScript : MonoBehaviour
 
     public GameObject Worm;
     public GameObject Score;
+    public GameObject Inventory;
 
     private bool onMap;
-        
+
     GoldenApple goldenApple = new GoldenApple();
 
     public bool checkOnMap()
@@ -27,7 +28,7 @@ public class GoldenAppleScript : MonoBehaviour
     {
 
         goldenApple.AppleInit();
-        goldenApple.transform.localScale = new Vector3Int(3,3,3);
+        goldenApple.transform.localScale = new Vector3Int(3, 3, 3);
         goldenApple.transform.position = new Vector3Int(-40, 0);
         // this.GetComponent<SpriteRenderer>().sortingOrder = 1;
         // transform.localScale = new Vector3Int(3, 3, 3);
@@ -37,12 +38,13 @@ public class GoldenAppleScript : MonoBehaviour
 
     public void ChanceSpawn()
     {
-        if (Score.GetComponent<ScoreListener>().GetScore() >= 5) {
+        if (Score.GetComponent<ScoreListener>().GetScore() >= 5)
+        {
 
             int n = Random.Range(1, 6);
 
             if (n == 1)
-            {  
+            {
                 goldenApple.changePosition();
                 // transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
                 onMap = true;
@@ -53,20 +55,35 @@ public class GoldenAppleScript : MonoBehaviour
     void SlowSpeed()
     {
         Debug.Log("Slowing Speed");
-        Worm.GetComponent<WormMovement>().ChangeSpeed("slow");
+        //Worm.GetComponent<WormMovement>().ChangeSpeed("slow");
+        Inventory.GetComponent<InventoryScript>().Add();
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        HandleInput();
 
-        if (Worm.transform.position.x == goldenApple.transform.position.x && Worm.transform.position.y == goldenApple.transform.position.y) {
-            
-                onMap = false;
-                SlowSpeed();
-			    goldenApple.transform.position = new Vector3Int(-40,0);
-            
+        if (Worm.transform.position.x == goldenApple.transform.position.x && Worm.transform.position.y == goldenApple.transform.position.y)
+        {
+
+            onMap = false;
+            SlowSpeed();
+            goldenApple.transform.position = new Vector3Int(-40, 0);
+
         }
     }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Inventory.GetComponent<InventoryScript>().Use();
+           
+        }
+
+    }
+
 }

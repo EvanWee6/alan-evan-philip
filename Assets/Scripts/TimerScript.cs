@@ -13,7 +13,7 @@ public class TimerScript : MonoBehaviour
         if (isTimerRunning)
         {
             timer += Time.deltaTime;
-            Debug.Log("Timer: " + timer);
+            //Debug.Log("Timer: " + timer);
         }
     }
 
