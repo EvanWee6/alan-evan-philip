@@ -8,6 +8,8 @@ public class InventoryScript : MonoBehaviour
     private int inventoryCount;
     public GameObject Worm;
 
+	private string[] SkinInventory;
+
     [SerializeField] public ParticleSystem powerUpAnimation;
 
 
@@ -15,6 +17,7 @@ public class InventoryScript : MonoBehaviour
     void Start()
     {
         inventoryCount = 0;
+		string[] SkinInventory = new string[0];
     }
 
     public void Add()
@@ -22,6 +25,19 @@ public class InventoryScript : MonoBehaviour
         inventoryCount += 1;
         Debug.Log($"you have: {inventoryCount} golden apples");
     }
+
+	public void AddSkin(string skin) {
+		string[] tmpInventory = new string[this.SkinInventory.Length +1];
+
+		tmpInventory[tmpInventory.Length -1] = skin;
+
+		this.SkinInventory = tmpInventory;
+
+		foreach(string i in this.SkinInventory) {
+			Debug.Log(i);
+		}
+
+	}
 
     public void Use()
     {
