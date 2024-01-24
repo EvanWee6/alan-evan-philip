@@ -12,13 +12,31 @@ public class InventoryScript : MonoBehaviour
 
     [SerializeField] public ParticleSystem powerUpAnimation;
 
+    private static InventoryScript instance;
+
 
     // Start is called before the first frame update
+
+
     void Start()
     {
         inventoryCount = 0;
 		string[] SkinInventory = new string[0];
     }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     public void Add()
     {
