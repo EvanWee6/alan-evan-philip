@@ -353,7 +353,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blue Skin
+  m_text: 'Blue
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 21710065e08d43c4aac220e726c5d967, type: 2}
   m_sharedMaterial: {fileID: -2571834519422467482, guid: 21710065e08d43c4aac220e726c5d967, type: 2}
@@ -545,12 +547,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2099722783826432428}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: BuyingScript, Assembly-CSharp
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -568,7 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87aee8254a38440bfadfd15301cc9314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 0}
+  skin: {fileID: 5785958208077150148}
 --- !u!1 &8269446252451183556
 GameObject:
   m_ObjectHideFlags: 0

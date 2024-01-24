@@ -6,9 +6,10 @@ using TMPro;
 public class BuyingScript : MonoBehaviour
 {
 
-    [SerializeField] private TMPro.TextMeshPro skin;
-    void Buy()
+    public GameObject Inventory;
+    [SerializeField] private TextMeshProUGUI skin;
+    public void Buy()
     {
-        
+        Inventory.GetComponent<InventoryScript>().AddSkin(skin.text);
     }
 }
