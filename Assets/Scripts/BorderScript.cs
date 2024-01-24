@@ -6,11 +6,13 @@ public class BorderScript : MonoBehaviour
 {
 
     public GameObject Worm;
+	public GameObject Coins;
 
     private bool lost = false;
 
     void Lose() {
         Worm.GetComponent<WormMovement>().onLose();
+		Coins.GetComponent<CoinListener>().WriteCoins();
     }
 
     // Update is called once per frame

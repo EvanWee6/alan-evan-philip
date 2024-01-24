@@ -14654,6 +14654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Worm: {fileID: 1946461845}
+  Coins: {fileID: 128580315}
 --- !u!4 &1919309136
 Transform:
   m_ObjectHideFlags: 0
