@@ -6,9 +6,11 @@ using System.IO;
 public class CoinListener : MonoBehaviour
 {
 
-	private int Coins;	
+	private int Coins;
+    public ScoreScript scoreScript;
 
-	void Start() {
+
+    void Start() {
 		this.Coins = 0;
 	}
 
@@ -18,7 +20,12 @@ public class CoinListener : MonoBehaviour
 		int previousCoins = ReadCoins();
 		int newCoins = Coins + previousCoins;
 		File.WriteAllText(path, newCoins.ToString());
-	}
+        ScoreScript scorescript = GetComponent<ScoreScript>();
+        if (scorescript != null)
+        {
+            scorescript.UpdateCoinsText(newCoins);
+        }
+    }
 
 	public int ReadCoins() {
 		string path = "coins.txt";
@@ -36,8 +43,13 @@ public class CoinListener : MonoBehaviour
 	public int GetCoins() {
 		return Coins;
 	}
-	public void AddCoin() {
+	public void AddCoin()
+	{
 		Coins += 1;
-	}
+		if (scoreScript != null)
+		{
+			scoreScript.UpdateCoinsText(Coins);
 
+		}
+    }
 }

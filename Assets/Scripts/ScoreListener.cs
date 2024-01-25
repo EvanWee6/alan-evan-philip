@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class ScoreListener : MonoBehaviour
 
     private int score;
     public GameObject goldenApple;
+    public ScoreScript scoreScript;
 
 
     void Start()
@@ -21,7 +23,11 @@ public class ScoreListener : MonoBehaviour
 
     public void UpdateScore()
     {
-        score += 1;
+        score += 1; 
+        if (scoreScript != null)
+        {
+            scoreScript.UpdateScoreText(score);
+        }
     }
 
     private void Update()
@@ -31,4 +37,6 @@ public class ScoreListener : MonoBehaviour
             goldenApple.GetComponent<GoldenAppleScript>().ChanceSpawn();
         }
     }
+
+
 }

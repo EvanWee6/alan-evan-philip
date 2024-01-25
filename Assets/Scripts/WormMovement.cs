@@ -37,6 +37,7 @@ public class WormMovement : MonoBehaviour
 
     public GameObject Score;
     public GameObject Timer;
+    public ScoreScript scorescript;
 
     private string playerName;
     private int finalScore;
@@ -49,6 +50,7 @@ public class WormMovement : MonoBehaviour
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
+        scorescript = GameObject.FindObjectOfType<ScoreScript>();
     }
 
     //Mine 
@@ -123,7 +125,7 @@ public class WormMovement : MonoBehaviour
             highscoreTable.AddHighscoreEntry(finalScore, playerName);
         }
 
-        SceneManager.LoadScene("mainmenu");
+        SceneManager.LoadScene("DeathScene");
     }
 
 
@@ -159,7 +161,11 @@ public class WormMovement : MonoBehaviour
     }
     //Mine ends
 
-
+    private void UpdateSpeed()
+    {
+        int currentSpeed = (int)(1 / speed);  // Assuming speed is a float representing time between moves
+        scorescript.UpdateSpeedText(currentSpeed);
+    }
     //I followed a tutorial for the movement
     private void Awake()
     {
@@ -206,6 +212,7 @@ public class WormMovement : MonoBehaviour
             case State.Alive:
                 HandleInput();
                 HandleGridMovement();
+                UpdateSpeed();
                 break;
             case State.Dead:
                 break;

@@ -14,4 +14,9 @@ public class PlayButton : MonoBehaviour
     {
         SceneManager.LoadScene("Leaderboard");
     }
+
+    public void Shopping()
+    {
+        SceneManager.LoadScene("Shop");
+    }
 }
