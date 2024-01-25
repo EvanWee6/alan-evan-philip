@@ -294,6 +294,7 @@ public class WormMovement : MonoBehaviour
                     // Game Over!
                     CMDebug.TextPopup("DEAD!", transform.position);
                     state = State.Dead;
+					SceneManager.LoadScene("mainmenu");
                 }
             }
 
