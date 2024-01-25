@@ -16,5 +16,11 @@ public class GameAssets : MonoBehaviour
     public Sprite wormBody;
 	public Sprite redApple;
 	public Sprite goldenApple;
+    public Sprite BwormHead;
+    public Sprite BwormBody;
+    public Sprite GwormHead;
+    public Sprite GwormBody;
+    public Sprite WwormHead;
+    public Sprite WwormBody;
 
 }
