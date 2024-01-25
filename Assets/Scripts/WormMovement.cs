@@ -40,11 +40,7 @@ public class WormMovement : MonoBehaviour
 
     private string playerName;
     private int finalScore;
-    
-    // [SerializeField] public GameObject Inventory;
-    // [SerializeField] private InventoryScript Inventory;
 
-    public GameObject Inventory;
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -52,10 +48,6 @@ public class WormMovement : MonoBehaviour
     }
 
     //Mine 
-
-    // void Start() {
-    //     Inventory = new InventoryScript();
-    // }
     public void ChangeSpeed(string type)
     {
         if (type == "point")
@@ -81,11 +73,6 @@ public class WormMovement : MonoBehaviour
         }
     }
 
-    //public static string GetSkin()
-    //{
-    //    return Inventory.GetComponent<InventoryScript>().ReadSkins();
-    //}
-
     public void SetPlayerName(string playerName)
     {
         this.playerName = playerName;
@@ -96,11 +83,6 @@ public class WormMovement : MonoBehaviour
         yield return new WaitForSeconds(delay);
         speed = originalSpeed;
         Debug.Log($"Back to original speed: {originalSpeed}");
-    }
-
-    public string GetSkin()
-    {
-        return Inventory.GetComponent<InventoryScript>().ReadSkins();
     }
 
     public void onLose()
@@ -127,31 +109,6 @@ public class WormMovement : MonoBehaviour
     }
 
 
-    public void SelectSkins() {
-        // if (Inventory.GetComponent<InventoryScript>().GetSkins()[0] == "Blue") {
-        //     Debug.Log("Chose Blue SKin!");
-        // }
-        // else {
-        //     Debug.Log("Can't find any skins");
-        // }
-
-        //Debug.Log(Inventory.GetComponent<InventoryScript>().ReadSkins());
-        if (Inventory.GetComponent<InventoryScript>().ReadSkins() == "Blue")
-        {
-            this.GetComponent<SpriteRenderer>().sprite = GameAssets.i.BwormHead;
-        } 
-        else if (Inventory.GetComponent<InventoryScript>().ReadSkins() == "green") {
-            this.GetComponent<SpriteRenderer>().sprite = GameAssets.i.GwormHead;
-        }
-        else if (Inventory.GetComponent<InventoryScript>().ReadSkins() == "white") {
-            this.GetComponent<SpriteRenderer>().sprite = GameAssets.i.WwormHead;
-        }
-        else
-        {
-            this.GetComponent<SpriteRenderer>().sprite = GameAssets.i.wormHead;
-        }
-
-    }
 
     public float GetSpeed()
     {
@@ -164,12 +121,6 @@ public class WormMovement : MonoBehaviour
     private void Awake()
     {
 
-        SelectSkins();
-
-        // Inventory = new InventoryScript();
-        
-        // Inventory.GetComponent<InventoryScript>().GetSkins();
-       
         Debug.Log($"Player Name: {playerName}");
         /*
         UI_InputWindow inputWindow = FindObjectOfType<UI_InputWindow>();
@@ -196,7 +147,6 @@ public class WormMovement : MonoBehaviour
         WormBodyPartList = new List<SnakeBodyPart>();
 
         state = State.Alive;
-
     }
 
     private void Update()
@@ -297,7 +247,7 @@ public class WormMovement : MonoBehaviour
 
     private void CreateWormBodyPart()
     {
-        WormBodyPartList.Add(new SnakeBodyPart(WormBodyPartList.Count, Inventory.GetComponent<InventoryScript>()));
+        WormBodyPartList.Add(new SnakeBodyPart(WormBodyPartList.Count));
     }
 
     private void UpdateSnakeBodyParts()
@@ -344,40 +294,13 @@ public class WormMovement : MonoBehaviour
         private SnakeMovePosition snakeMovePosition;
         private Transform transform;
 
-        private InventoryScript inventory;
-
-        public SnakeBodyPart(int bodyIndex, InventoryScript inventory)
+        public SnakeBodyPart(int bodyIndex)
         {
-            this.inventory = inventory;
-
-            if (inventory.ReadSkins() == "Blue") {
-                GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.BwormBody;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().transform.localScale = new Vector3Int(3, 3, 3);
-                transform = snakeBodyGameObject.transform;
-            }
-            else if (inventory.ReadSkins() == "green") {
-                GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.GwormBody;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().transform.localScale = new Vector3Int(3, 3, 3);
-                transform = snakeBodyGameObject.transform;
-            }
-            else if (inventory.ReadSkins() == "white") {
-                GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.WwormBody;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().transform.localScale = new Vector3Int(3, 3, 3);
-                transform = snakeBodyGameObject.transform; 
-            }
-            else {
-                GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.wormBody;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                snakeBodyGameObject.GetComponent<SpriteRenderer>().transform.localScale = new Vector3Int(3, 3, 3);
-                transform = snakeBodyGameObject.transform; 
-            }
+            GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
+            snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.i.wormBody;
+            snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            snakeBodyGameObject.GetComponent<SpriteRenderer>().transform.localScale = new Vector3Int(3, 3, 3);
+            transform = snakeBodyGameObject.transform;
         }
 
         public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)

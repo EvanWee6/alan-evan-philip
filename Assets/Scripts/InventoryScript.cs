@@ -8,21 +8,35 @@ public class InventoryScript : MonoBehaviour
     private int inventoryCount;
     public GameObject Worm;
 
-	private string[] SkinInventory = new string[0];
-    
-	private static InventoryScript instance;
+	private string[] SkinInventory;
 
     [SerializeField] public ParticleSystem powerUpAnimation;
 
+    private static InventoryScript instance;
+
 
     // Start is called before the first frame update
+
+
     void Start()
     {
         inventoryCount = 0;
-		// SkinInventory = new string[0];
-
-        ReadSkins();
+		string[] SkinInventory = new string[0];
     }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     public void Add()
     {
@@ -31,38 +45,17 @@ public class InventoryScript : MonoBehaviour
     }
 
 	public void AddSkin(string skin) {
-        
-		
 		string[] tmpInventory = new string[this.SkinInventory.Length +1];
 
 		tmpInventory[tmpInventory.Length -1] = skin;
 
 		this.SkinInventory = tmpInventory;
 
-		//foreach(string i in this.SkinInventory) {
-		//	Debug.Log(i);
-		//}
+		foreach(string i in this.SkinInventory) {
+			Debug.Log(i);
+		}
 
 	}
-
-    public string ReadSkins()
-    {
-        string skins = System.IO.File.ReadAllText("skins.txt");
-
-        // foreach (string skin in skins)
-        // {
-        //     Debug.Log(skin);
-        //     AddSkin(skin);    
-        // }
-
-        AddSkin(skins);
-        Debug.Log(SkinInventory[SkinInventory.Length - 1]);
-        return SkinInventory[SkinInventory.Length-1];
-    }
-
-    public string[] GetSkins() {
-       return this.SkinInventory;
-    }
 
     public void Use()
     {
