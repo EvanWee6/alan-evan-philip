@@ -11,15 +11,16 @@ public class InventoryScript : MonoBehaviour
 	private string[] SkinInventory = new string[0];
     
 	private static InventoryScript instance;
-
+    private ScoreScript scoreScript;
     [SerializeField] public ParticleSystem powerUpAnimation;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        scoreScript = FindObjectOfType<ScoreScript>();
         inventoryCount = 0;
-		// SkinInventory = new string[0];
+        // SkinInventory = new string[0];
 
         ReadSkins();
     }
@@ -28,6 +29,10 @@ public class InventoryScript : MonoBehaviour
     {
         inventoryCount += 1;
         Debug.Log($"you have: {inventoryCount} golden apples");
+        if (scoreScript != null)
+        {
+            scoreScript.UpdateGoldenAppleCount(inventoryCount);
+        }
     }
 
 	public void AddSkin(string skin) {

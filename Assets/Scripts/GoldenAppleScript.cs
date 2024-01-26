@@ -48,7 +48,9 @@ public class GoldenAppleScript : MonoBehaviour
                 goldenApple.changePosition();
                 // transform.position = new Vector3Int((Random.Range(-15, 19)), (Random.Range(-9, 9)));
                 onMap = true;
+                
             }
+        
         }
     }
 
@@ -72,7 +74,18 @@ public class GoldenAppleScript : MonoBehaviour
             onMap = false;
             SlowSpeed();
             goldenApple.transform.position = new Vector3Int(-40, 0);
-
+            if (Inventory != null)
+            {
+                int goldenCount = Inventory.GetComponent<InventoryScript>().GetCount();
+                if (Score != null && Score.GetComponent<ScoreScript>() != null)
+                {
+                    Score.GetComponent<ScoreScript>().UpdateGoldenAppleCount(goldenCount);
+                }
+            }
+            //if (Score != null && Score.GetComponent<ScoreScript>() != null)
+            //{
+            //Score.GetComponent<ScoreScript>().UpdateGoldenAppleCount(Score.GetComponent<ScoreScript>().golden + 1);
+            //}
         }
     }
 
@@ -81,9 +94,9 @@ public class GoldenAppleScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Inventory.GetComponent<InventoryScript>().Use();
-           
+
         }
 
-    }
 
+    }
 }

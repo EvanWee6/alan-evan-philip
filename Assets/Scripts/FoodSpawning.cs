@@ -51,6 +51,7 @@ public class FoodSpawning : MonoBehaviour
 
             apple.changePosition();
 
+
             GoldenApple.GetComponent<GoldenAppleScript>().ChanceSpawn();
 
         }

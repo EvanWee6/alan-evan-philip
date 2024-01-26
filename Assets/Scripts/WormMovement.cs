@@ -116,7 +116,9 @@ public class WormMovement : MonoBehaviour
 
         Debug.ClearDeveloperConsole();
         Debug.Log($"Final Stats\n score:{finalScore}\ntime: {time}");
-
+        
+        PlayerPrefs.SetInt("FinalScore", finalScore);
+        PlayerPrefs.Save();
         // Pass the playerName to the Highscore script
         UI_InputWindow uI_InputWindow = FindObjectOfType<UI_InputWindow>();
         if (uI_InputWindow != null)
